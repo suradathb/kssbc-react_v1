@@ -1,0 +1,50 @@
+/*
+Custom Css
+*/
+.logo-Header{
+    width: 100px;
+}
+.logo-Footer{
+    width: 100px;
+    text-align: center;
+}
+
+.footer .logo-Footer{
+    align-items: center;
+}
+.socal .footer-icons{
+    text-align: center;
+   
+}
+.con{
+    text-align: center;
+}
+.login-app{
+    text-align: center;
+}
+.logo{
+    width: 300px;
+}
+.img-fluid{
+    height: 300px;
+}
+.img-fluid-show{
+    height: 100%;
+    border-radius: 25px;
+    /* vertical-align: middle; */
+    width: 100%;
+}
+.header-active{
+    background-color: #800000;
+}
+.show-logo{
+    text-align: center;
+    
+}
+.name-app{
+    text-align: center;
+}
+
+.text-end{
+    padding-right: (spacer * .5) !important;
+}
