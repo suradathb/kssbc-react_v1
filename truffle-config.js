@@ -49,7 +49,7 @@ require('dotenv').config();
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const providerTestnet = new HDWalletProvider({
   // privateKeys: ['b8a56e6041d2d97564fdbe342e32e8518ec1e41230d11ef3333f0bebd152a16a'],
-  privateKeys: ['e2024b93133398322d3e02b09108668571983a6b79e91f68b35a9e261c58f3a5'],
+  privateKeys: ['7112160e33d7de0353fe3c5989aeafbe41e6d0fe1cef2c9209c9670d5cfa6505'],
   providerOrUrl: 'https://rpc-mumbai.maticvigil.com'
 });
 module.exports = {
@@ -62,7 +62,8 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
-  contracts_build_directory: "../src/abi",
+  contracts_diretory: './contracts/',
+  contracts_build_directory: './src/abis/',
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
@@ -73,14 +74,14 @@ module.exports = {
     mumbiTest: {
       provider: () => providerTestnet,
       network_id: "80001",
-      port:80001,
+      port: 80001,
       // gas: 1000000,
       skipDryRun: true,
     },
     development: {
-     host: "127.0.0.1",     // Localhost (default: none)
-     port: 8545,            // Standard Ethereum port (default: none)
-     network_id: "*",       // Any network (default: none)
+      host: "127.0.0.1",     // Localhost (default: none)
+      port: 8545,            // Standard Ethereum port (default: none)
+      network_id: "*",       // Any network (default: none)
     },
     //
     // An additional network, but with some advanced options…
