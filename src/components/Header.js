@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
+
 
 
 class Header extends Component {
@@ -9,7 +11,7 @@ class Header extends Component {
     await this.loadBlockchainData();
   }
   async loadWeb3() {
-    if (window.ethereum) {
+    if (window.web3) {
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
     } else if (window.web3) {
@@ -21,25 +23,33 @@ class Header extends Component {
     }
   }
   async loadBlockchainData() {
-    const web3 = window.web3;
-    const accounts = await web3.eth.getAccounts();
-    this.setState({ accounts: accounts[0] });
-    
+    if (window.web3) {
+      const web3 = window.web3;
+      const accounts = await web3.eth.getAccounts();
+      this.setState({ accounts: accounts[0] });
+      const networkId = await web3.eth.net.getId();
+      const networkData = KSSBC.networks[networkId];
+
+      const abi = KSSBC.abi;
+      const address = networkData.address;
+      const KssBonus = new web3.eth.Contract(abi, address);
+      this.setState({ KssBonus });
+    }
   }
   constructor(props) {
     super(props);
     this.state = {
       accounts: "",
-      contract:[]
+      KssBonus: []
     }
   }
   render() {
     return (
       <>
-        <nav class="navbar navbar-expand-lg navbar-light shadow">
-          <div class="container d-flex justify-content-between align-items-center">
+        <nav className="navbar navbar-expand-lg navbar-light shadow">
+          <div className="container d-flex justify-content-between align-items-center">
             <a
-              class="navbar-brand text-success logo h1 align-self-center"
+              className="navbar-brand text-success logo h1 align-self-center"
               href="/"
             >
               <img
@@ -50,7 +60,7 @@ class Header extends Component {
             </a>
 
             <button
-              class="navbar-toggler border-0"
+              className="navbar-toggler border-0"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#templatemo_main_nav"
@@ -58,51 +68,41 @@ class Header extends Component {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon"></span>
             </button>
 
             <div
-              class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+              className="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
               id="templatemo_main_nav"
             >
-              <div class="flex-fill">
-                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                  <li class="nav-item">
-                    <Link class="nav-link" to="/">
+              <div className="flex-fill">
+                <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/">
                       หน้าหลัก
                     </Link>
                   </li>
-                  <li class="nav-item">
-                    <Link class="nav-link" to="/search">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/two">
                       ค้นหา
                     </Link>
                   </li>
-                  <li class="nav-item">
-                    <Link class="nav-link" to="/abount">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/abount">
                       เกี่ยวกับเรา
                     </Link>
                   </li>
-                  {/* <li class="nav-item">
-                    <Link class="nav-link" to="/showcowcert">
-                      CreateCowCert
-                    </Link>
-                  </li> */}
-                  {/* <li class="nav-item">
-                    <Link class="nav-link" to="/Alert">
-                        TestAlert
-                    </Link>
-                  </li> */}
-                  <li class="nav-item">
-                    <Link class="nav-link" to="/contact">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/contact">
                       ติดต่อเรา
                     </Link>
                   </li>
 
                 </ul>
               </div>
-              <div class="navbar align-self-center d-flex">
-                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                  <li class="nav-item">{this.state.accounts}</li>
+              <div className="navbar align-self-center d-flex">
+                <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                  <li className="nav-item">{this.state.accounts}</li>
                 </ul>
               </div>
             </div>
