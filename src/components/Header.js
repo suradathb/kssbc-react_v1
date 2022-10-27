@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
 

@@ -1,11 +1,16 @@
-import React from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 
-function Footer(props) {
+class Footer extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     return (
-        <>
-         <footer className="bg-dark" id="tempaltemo_footer">
+      <>
+        <footer className="bg-dark" id="tempaltemo_footer">
           <div className="container">
             <div className="row">
               <div className="col-md-4 pt-5 footer">
@@ -17,7 +22,7 @@ function Footer(props) {
                 <ul className="list-unstyled text-light footer-link-list">
                   <li>
                     <i className="fas fa-map-marker-alt fa-fw"> </i>
-                    Lorem Lorem Lorem Lorem Lorem Lorem 
+                    Lorem Lorem Lorem Lorem Lorem Lorem
                   </li>
                   <li>
                     <i className="fa fa-phone fa-fw"></i>
@@ -152,8 +157,9 @@ function Footer(props) {
             </div>
           </div>
         </footer>
-        </>
+      </>
     );
+  }
 }
 
 export default Footer;
