@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
+import CurrencyInput  from 'react-currency-input-field';
 
 
 
@@ -33,14 +34,17 @@ class Header extends Component {
       const abi = KSSBC.abi;
       const address = networkData.address;
       const KssBonus = new web3.eth.Contract(abi, address);
-      this.setState({ KssBonus });
+      this.setState({ contract: KssBonus });
+      const balance = await KssBonus.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
+      this.setState({ balance: balance });
     }
   }
   constructor(props) {
     super(props);
     this.state = {
       accounts: "",
-      KssBonus: []
+      contract: "",
+      balance:""
     }
   }
   render() {
@@ -102,7 +106,7 @@ class Header extends Component {
               </div>
               <div className="navbar align-self-center d-flex">
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                  <li className="nav-item">{this.state.accounts}</li>
+                  <li className="nav-item">KSSBC :<CurrencyInput  value={this.state.balance} /></li>
                 </ul>
               </div>
             </div>
