@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
 
-
-
 class Header extends Component {
   async componentWillMount() {
     await this.loadWeb3();
@@ -33,17 +31,38 @@ class Header extends Component {
       const abi = KSSBC.abi;
       const address = networkData.address;
       const KssBonus = new web3.eth.Contract(abi, address);
-      this.setState({ KssBonus });
+      this.setState({ contract: KssBonus });
+      // balanceOf();
+      const balance = await KssBonus.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
+      
+      
+      // symbol();
+      const symbol = await KssBonus.methods.symbol().call();
+      this.setState({symbol:symbol});
+      const sumbalace = web3.utils.fromWei(balance,"ether");
+      this.setState({ balance: sumbalace });
+      // Decimal
+      const decimal = await KssBonus.methods.decimals().call();
+      this.setState({decimals:decimal});
     }
   }
+  currencyFormat(num) {
+    return Intl.NumberFormat().format(num);
+  }
+ 
   constructor(props) {
     super(props);
     this.state = {
       accounts: "",
-      KssBonus: []
+      contract: "",
+      balance:0,
+      symbol:"",
+      decimals:0
+
     }
   }
   render() {
+    
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light shadow">
@@ -97,12 +116,11 @@ class Header extends Component {
                       ติดต่อเรา
                     </Link>
                   </li>
-
                 </ul>
               </div>
               <div className="navbar align-self-center d-flex">
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                  <li className="nav-item">{this.state.accounts}</li>
+                  <li className="nav-item">{this.state.symbol} : {this.currencyFormat(this.state.balance)}</li>
                 </ul>
               </div>
             </div>
@@ -115,3 +133,4 @@ class Header extends Component {
 }
 
 export default Header;
+
