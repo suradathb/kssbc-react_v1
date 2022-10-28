@@ -13,7 +13,6 @@
     "@web3-react/injected-connector": "^6.0.7",
     "react": "next",
     "react-bootstrap": "^2.5.0",
-    "react-currency-input-field": "^3.6.9",
     "react-dom": "next",
     "react-router-dom": "^6.4.2",
     "react-scripts": "^2.1.3",
