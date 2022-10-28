@@ -1,17 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import KSSBC from './../abis/KSSBonusToken.json';
-import Web3 from 'web3';
+import KSSBC from "./../abis/KSSBonusToken.json";
+import Web3 from "web3";
 
 class Header extends Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
   }
+  
   async loadWeb3() {
     if (window.web3) {
       window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
+      // await window.ethereum.enable();
+      await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
@@ -33,36 +37,35 @@ class Header extends Component {
       const KssBonus = new web3.eth.Contract(abi, address);
       this.setState({ contract: KssBonus });
       // balanceOf();
-      const balance = await KssBonus.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
-      
-      
+      const balance = await KssBonus.methods
+        .balanceOf(accounts[0])
+        .call({ from: accounts[0] });
+
       // symbol();
       const symbol = await KssBonus.methods.symbol().call();
-      this.setState({symbol:symbol});
-      const sumbalace = web3.utils.fromWei(balance,"ether");
+      this.setState({ symbol: symbol });
+      const sumbalace = web3.utils.fromWei(balance, "ether");
       this.setState({ balance: sumbalace });
       // Decimal
       const decimal = await KssBonus.methods.decimals().call();
-      this.setState({decimals:decimal});
+      this.setState({ decimals: decimal });
     }
   }
   currencyFormat(num) {
     return Intl.NumberFormat().format(num);
   }
- 
+
   constructor(props) {
     super(props);
     this.state = {
       accounts: "",
       contract: "",
-      balance:0,
-      symbol:"",
-      decimals:0
-
-    }
+      balance: 0,
+      symbol: "",
+      decimals: 0,
+    };
   }
   render() {
-    
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light shadow">
@@ -120,7 +123,10 @@ class Header extends Component {
               </div>
               <div className="navbar align-self-center d-flex">
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                  <li className="nav-item">{this.state.symbol} : {this.currencyFormat(this.state.balance)}</li>
+                  <li className="nav-item">
+                    {this.state.symbol} :{" "}
+                    {this.currencyFormat(this.state.balance)}
+                  </li>
                 </ul>
               </div>
             </div>
@@ -133,4 +139,3 @@ class Header extends Component {
 }
 
 export default Header;
-
