@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import KSSBC from './../abis/KSSBonusToken.json';
-import Web3 from 'web3';
+import KSSBC from "./../abis/KSSBonusToken.json";
+import Web3 from "web3";
 
-class Header extends Component {
+class Header extends React.Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
@@ -36,8 +36,9 @@ class Header extends Component {
       const KssBonus = new web3.eth.Contract(abi, address);
       this.setState({ contract: KssBonus });
       // balanceOf();
-      const balance = await KssBonus.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
-
+      const balance = await KssBonus.methods
+        .balanceOf(accounts[0])
+        .call({ from: accounts[0] });
 
       // symbol();
       const symbol = await KssBonus.methods.symbol().call();
@@ -56,11 +57,53 @@ class Header extends Component {
 
   async usernameshow() {
     const user = [
-      { id: 1, username: "admin", password: "password@1", address: "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736", hashkey: "e2024b93133398322d3e02b09108668571983a6b79e91f68b35a9e261c58f3a5", type: "A" },
-      { id: 2, username: "user1", password: "password@1", address: "0xEDB04B6aBae9eb8f486767a4D6A433bB28288598", hashkey: "968ba4a0e1d01c637d9d8dd7958373bc3562d2215813f607779b07fbcddd8dd2", type: "A" },
-      { id: 3, username: "user2", password: "password@1", address: "0xEf5847A1dCA3908499065B11d236e1dB3a0f89aE", hashkey: "7112160e33d7de0353fe3c5989aeafbe41e6d0fe1cef2c9209c9670d5cfa6505", type: "A" },
-    ]
-    const test = user.filter(obj => {
+      {
+        id: 1,
+        username: "admin",
+        password: "password@1",
+        address: "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736",
+        hashkey:
+          "e2024b93133398322d3e02b09108668571983a6b79e91f68b35a9e261c58f3a5",
+        type: "1",
+      },
+      {
+        id: 2,
+        username: "user1",
+        password: "password@1",
+        address: "0xEDB04B6aBae9eb8f486767a4D6A433bB28288598",
+        hashkey:
+          "968ba4a0e1d01c637d9d8dd7958373bc3562d2215813f607779b07fbcddd8dd2",
+        type: "0",
+      },
+      {
+        id: 3,
+        username: "user2",
+        password: "password@1",
+        address: "0xEf5847A1dCA3908499065B11d236e1dB3a0f89aE",
+        hashkey:
+          "7112160e33d7de0353fe3c5989aeafbe41e6d0fe1cef2c9209c9670d5cfa6505",
+        type: "0",
+      },
+      {
+        id: 4,
+        username: "adminGTOMacPro",
+        password: "password@1",
+        address: "0xa21c02f06D9464ef504245A40442001E209d165D",
+        hashkey:
+          "8b257d1286597e54605d7af8059b671ffb12c2e2a0030eb0604fa9f66bc2bc9c",
+        type: "1",
+      },
+      {
+        id: 5,
+        username: "Account1MacPro",
+        password: "password@1",
+        address: "0xcc33Aa1C5d79c4B639aA9AC3679dd5F7f1e32cD6",
+        hashkey:
+          "4054150a976e78366bfd190da4b4592dc4a5a6d94d0ef9d059c2517d05bbe365",
+        type: "0",
+      },
+    ];
+    const test = user.filter((obj) => {
       if (obj.address === this.state.accounts) {
         try {
           this.setState({ acname: obj.username });
@@ -80,8 +123,7 @@ class Header extends Component {
       symbol: "",
       decimals: 0,
       acname: "",
-
-    }
+    };
   }
   render() {
     return (
@@ -141,7 +183,11 @@ class Header extends Component {
               </div>
               <div className="navbar align-self-center d-flex">
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                  <li className="nav-item">ผู้ใช้ : {this.state.acname} {this.state.symbol} : {this.currencyFormat(this.state.balance)} To ETH :{this.currencyFormat(this.state.balanceETH)}</li>
+                  <li className="nav-item">
+                    ผู้ใช้ : {this.state.acname} {this.state.symbol} :{" "}
+                    {this.currencyFormat(this.state.balance)} To ETH :
+                    {this.currencyFormat(this.state.balanceETH)}
+                  </li>
                 </ul>
               </div>
             </div>
@@ -154,4 +200,3 @@ class Header extends Component {
 }
 
 export default Header;
-

@@ -6,7 +6,7 @@ import Home from './components/Home';
 import ListUser from './components/ListUser';
 
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
