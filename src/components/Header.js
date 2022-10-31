@@ -7,11 +7,14 @@ class Header extends Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
+    await this.usernameshow();
   }
   async loadWeb3() {
     if (window.web3) {
       window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
+      await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
@@ -34,35 +37,53 @@ class Header extends Component {
       this.setState({ contract: KssBonus });
       // balanceOf();
       const balance = await KssBonus.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
-      
-      
+
+
       // symbol();
       const symbol = await KssBonus.methods.symbol().call();
-      this.setState({symbol:symbol});
-      const sumbalace = web3.utils.fromWei(balance,"ether");
-      this.setState({ balance: sumbalace });
+      this.setState({ symbol: symbol });
+      const sumbalaceETH = web3.utils.fromWei(balance, "ether");
+      const sumbalace = balance;
+      this.setState({ balance: sumbalace, balanceETH: sumbalaceETH });
       // Decimal
       const decimal = await KssBonus.methods.decimals().call();
-      this.setState({decimals:decimal});
+      this.setState({ decimals: decimal });
     }
   }
   currencyFormat(num) {
     return Intl.NumberFormat().format(num);
   }
- 
+
+  async usernameshow() {
+    const user = [
+      { id: 1, username: "admin", password: "password@1", address: "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736", hashkey: "e2024b93133398322d3e02b09108668571983a6b79e91f68b35a9e261c58f3a5", type: "A" },
+      { id: 2, username: "user1", password: "password@1", address: "0xEDB04B6aBae9eb8f486767a4D6A433bB28288598", hashkey: "968ba4a0e1d01c637d9d8dd7958373bc3562d2215813f607779b07fbcddd8dd2", type: "A" },
+      { id: 3, username: "user2", password: "password@1", address: "0xEf5847A1dCA3908499065B11d236e1dB3a0f89aE", hashkey: "7112160e33d7de0353fe3c5989aeafbe41e6d0fe1cef2c9209c9670d5cfa6505", type: "A" },
+    ]
+    const test = user.filter(obj => {
+      if (obj.address === this.state.accounts) {
+        try {
+          this.setState({ acname: obj.username });
+        } catch (e) {
+          alert(e);
+        }
+      }
+    });
+  }
   constructor(props) {
     super(props);
     this.state = {
       accounts: "",
       contract: "",
-      balance:0,
-      symbol:"",
-      decimals:0
+      balance: 0,
+      balanceETH: 0,
+      symbol: "",
+      decimals: 0,
+      acname: "",
 
     }
   }
   render() {
-    
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light shadow">
@@ -102,8 +123,8 @@ class Header extends Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/two">
-                      ค้นหา
+                    <Link className="nav-link" to="/list">
+                      Admin
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -120,7 +141,7 @@ class Header extends Component {
               </div>
               <div className="navbar align-self-center d-flex">
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                  <li className="nav-item">{this.state.symbol} : {this.currencyFormat(this.state.balance)}</li>
+                  <li className="nav-item">ผู้ใช้ : {this.state.acname} {this.state.symbol} : {this.currencyFormat(this.state.balance)} To ETH :{this.currencyFormat(this.state.balanceETH)}</li>
                 </ul>
               </div>
             </div>
