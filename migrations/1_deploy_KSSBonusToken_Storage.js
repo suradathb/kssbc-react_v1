@@ -1,6 +1,6 @@
 const KSSBonusToken = artifacts.require("KSSBonusToken");
 
 module.exports = function (deployer) {
-  account = "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736";
+  account = "0xa21c02f06D9464ef504245A40442001E209d165D";
   deployer.deploy(KSSBonusToken,account);
 };

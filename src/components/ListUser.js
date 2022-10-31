@@ -41,7 +41,7 @@ class ListUser extends Component {
         }
     }
     shoot = (num, item) => e => {
-        // console.log(item, num);
+        console.log(item, num);
         const addCert = this.state.contract.methods
             .transfer(num, item)
             .send({ from: this.state.account })
@@ -107,7 +107,7 @@ class ListUser extends Component {
                 </div>
                 <div className="container py-5">
                     <div className="row">
-                        <table class="table">
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
@@ -121,7 +121,7 @@ class ListUser extends Component {
                             <tbody>
                                 {this.PRODUCTS.map((name, key) =>
                                     <>
-                                        <tr>
+                                        <tr key={key}>
                                             <th scope="row">{name.id}</th>
                                             <td>{name.name}</td>
                                             <td>{name.date}</td>
@@ -131,7 +131,7 @@ class ListUser extends Component {
                                                 <input
                                                     type="submit"
                                                     value="อนุมัติ Token"
-                                                    class="btn btn-success btn-lg px-3"
+                                                    className="btn btn-success btn-lg px-3"
                                                     onClick={this.shoot(this.user[2].address, name.pointtoken)}
                                                 />
                                             </td>
