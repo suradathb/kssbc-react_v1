@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 
 
-class Footer extends Component {
+class Footer extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -22,21 +22,23 @@ class Footer extends Component {
                 <ul className="list-unstyled text-light footer-link-list">
                   <li>
                     <i className="fas fa-map-marker-alt fa-fw"> </i>
-                    Lorem Lorem Lorem Lorem Lorem Lorem
+                    Krungsri Securities Public Company Limited, Head Office
+                    898 Ploenchit Tower, 3rd Floor, Ploenchit Road
+                    Lumpini Subdistrict, Pathumwan District, Bangkok 10330
                   </li>
                   <li>
-                    <i className="fa fa-phone fa-fw"></i>
-                    <a className="text-decoration-none" href="tel:084-030-1191">
-                      084-030-1191
+                    <i className="fa fa-phone fa-fw"> </i>
+                    <a className="text-decoration-none" href="tel:+66(0) 2659 7000">
+                      +66(0) 2659 7000
                     </a>
                   </li>
                   <li>
-                    <i className="fa fa-envelope fa-fw"></i>
+                    <i className="fa fa-envelope fa-fw"> </i>
                     <a
                       className="text-decoration-none"
                       href="mailto:bondnuy007@me.com"
                     >
-                      Bondnuy007@me.com
+                      11429651@krungsrisecurities.com
                     </a>
                   </li>
                 </ul>
@@ -57,27 +59,27 @@ class Footer extends Component {
 
               <div className="col-md-4 pt-5">
                 <h2 className="h2 text-light border-bottom pb-3 border-light">
-                  ข้อมูลเพิ่มเติม
+                  More Infomation
                 </h2>
                 <ul className="list-unstyled text-light footer-link-list">
                   <li>
                     <Link className="text-decoration-none" to="/">
-                      หน้าหลัก
+                      Product
                     </Link>
                   </li>
                   <li>
                     <Link className="text-decoration-none" to="/search">
-                      ค้นหา
+                      Admin
                     </Link>
                   </li>
                   <li>
                     <Link className="text-decoration-none" to="/abount">
-                      เกี่ยวกับเรา
+                      Abount
                     </Link>
                   </li>
                   <li>
                     <Link className="text-decoration-none" to="/contact">
-                      ติดต่อเรา
+                      FAQ
                     </Link>
                   </li>
                 </ul>

@@ -1,10 +1,10 @@
 
-import React, { Component } from "react";
+import React from "react";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
 import Header from "./Header";
 
-class Home extends Component {
+class Home extends React.Component {
     async componentWillMount() {
         await this.loadWeb3();
         await this.loadBlockchainData();
@@ -65,7 +65,7 @@ class Home extends Component {
             <>
                 <div className="container-fluid bg-light py-5">
                     <div className="col-md-6 m-auto text-center">
-                        <h1 className="h1">หลักทรัพย์กรุงศรี Bonus Token</h1>
+                        <h1 className="h1"> Krungsri Securities Bonus Token</h1>
                         <div className="input-group mb-3 text-center">
                             <p>
                                 {this.state.item}

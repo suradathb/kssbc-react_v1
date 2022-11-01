@@ -1,10 +1,10 @@
 
-import React, { Component } from "react";
+import React from "react";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
 
 
-class ListUser extends Component {
+class ListUser extends React.Component {
     async componentWillMount() {
         await this.loadWeb3();
         await this.loadBlockchainData();
@@ -99,7 +99,7 @@ class ListUser extends Component {
                         <h1 className="h1">Create User Bonus Token</h1>
                         <div className="input-group mb-3 text-center">
                             <p>
-                                {this.state.acname}
+                                {/* {this.state.acname} */}
                             </p>
 
                         </div>
@@ -111,8 +111,8 @@ class ListUser extends Component {
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">รายละเอียด</th>
-                                    <th scope="col">วันที่</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Date</th>
                                     <th scope="col">Volume</th>
                                     <th scope="col">Point Token</th>
                                     <th scope='col'></th>

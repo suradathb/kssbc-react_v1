@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
 
-class Header extends Component {
+class Header extends React.Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
@@ -119,7 +119,7 @@ class Header extends Component {
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                   <li className="nav-item">
                     <Link className="nav-link" to="/">
-                      หน้าหลัก
+                      Product
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -129,19 +129,22 @@ class Header extends Component {
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/abount">
-                      เกี่ยวกับเรา
+                      FAQ
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/contact">
-                      ติดต่อเรา
+                      Abount
                     </Link>
                   </li>
+                  {/* <li className="nav-item">ผู้ใช้ : {this.state.acname} </li> */}
                 </ul>
               </div>
               <div className="navbar align-self-center d-flex">
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                  <li className="nav-item">ผู้ใช้ : {this.state.acname} {this.state.symbol} : {this.currencyFormat(this.state.balance)} To ETH :{this.currencyFormat(this.state.balanceETH)}</li>
+                  
+                  <li className="nav-item"> {this.state.symbol} : {this.currencyFormat(this.state.balance)} wei</li>
+                  {/* <li className="nav-item"> To ETH :{this.currencyFormat(this.state.balanceETH)}</li> */}
                 </ul>
               </div>
             </div>
