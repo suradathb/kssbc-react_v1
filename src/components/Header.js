@@ -18,10 +18,11 @@ class Header extends React.Component {
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
-      // window.alert(
-      //   "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      // );
+      window.alert(
+        "Non-Ethereum browser detected. You should consider trying MetaMask!"
+      );
     }
+
   }
   async loadBlockchainData() {
     if (window.web3) {
@@ -142,7 +143,7 @@ class Header extends React.Component {
               </div>
               <div className="navbar align-self-center d-flex">
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                  
+
                   <li className="nav-item"> {this.state.symbol} : {this.currencyFormat(this.state.balance)} wei</li>
                   {/* <li className="nav-item"> To ETH :{this.currencyFormat(this.state.balanceETH)}</li> */}
                 </ul>

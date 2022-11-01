@@ -2,7 +2,7 @@
 import React from "react";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
-import Header from "./Header";
+
 
 class Home extends React.Component {
     async componentWillMount() {
@@ -18,14 +18,14 @@ class Home extends React.Component {
         } else if (window.web3) {
             window.web3 = new Web3(window.web3.currentProvider);
         } else {
-            // window.alert(
-            //   "Non-Ethereum browser detected. You should consider trying MetaMask!"
-            // );
+            window.alert(
+              "Non-Ethereum browser detected. You should consider trying MetaMask!"
+            );
         }
     }
     async loadBlockchainData() {
         if (window.web3) {
-            const web3 = window.web3;
+            const web3 = web3;
             const accounts = await web3.eth.getAccounts();
             this.setState({ account: accounts[0] });
             const networkId = await web3.eth.net.getId();

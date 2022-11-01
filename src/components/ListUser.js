@@ -19,9 +19,9 @@ class ListUser extends React.Component {
         } else if (window.web3) {
             window.web3 = new Web3(window.web3.currentProvider);
         } else {
-            // window.alert(
-            //   "Non-Ethereum browser detected. You should consider trying MetaMask!"
-            // );
+            window.alert(
+              "Non-Ethereum browser detected. You should consider trying MetaMask!"
+            );
         }
     }
     async loadBlockchainData() {
@@ -107,7 +107,7 @@ class ListUser extends React.Component {
                 </div>
                 <div className="container py-5">
                     <div className="row">
-                        <table class="table">
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
@@ -119,9 +119,9 @@ class ListUser extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.PRODUCTS.map((name, key) =>
+                                {this.PRODUCTS.map((name) =>
                                     <>
-                                        <tr>
+                                        <tr key={name}>
                                             <th scope="row">{name.id}</th>
                                             <td>{name.name}</td>
                                             <td>{name.date}</td>
@@ -131,7 +131,7 @@ class ListUser extends React.Component {
                                                 <input
                                                     type="submit"
                                                     value="อนุมัติ Token"
-                                                    class="btn btn-success btn-lg px-3"
+                                                    className="btn btn-success btn-lg px-3"
                                                     onClick={this.shoot(this.user[2].address, name.pointtoken)}
                                                 />
                                             </td>
