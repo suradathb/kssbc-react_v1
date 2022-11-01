@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import KSSBC from "./../abis/KSSBonusToken.json";
 import Web3 from "web3";
 
-class Header extends Component {
+class Header extends React.Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
