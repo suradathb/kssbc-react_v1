@@ -52,6 +52,7 @@ const providerTestnet = new HDWalletProvider({
   privateKeys: ['7112160e33d7de0353fe3c5989aeafbe41e6d0fe1cef2c9209c9670d5cfa6505'],
   providerOrUrl: 'https://rpc-mumbai.maticvigil.com'
 });
+
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -130,7 +131,7 @@ module.exports = {
       //  evmVersion: "byzantium"
       // }
     }
-  }
+  },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled:
   // false to enabled: true. The default storage location can also be
@@ -142,11 +143,12 @@ module.exports = {
   // After you backed up your artifacts you can utilize db by running migrate as follows:
   // $ truffle migrate --reset --compile-all
   //
+  
   // db: {
   //   enabled: false,
   //   host: "127.0.0.1",
   //   adapter: {
-  //     name: "indexeddb",
+  //     name: "kssbc",
   //     settings: {
   //       directory: ".db"
   //     }

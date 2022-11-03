@@ -3,7 +3,6 @@ import React from "react";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
 
-
 class Home extends React.Component {
     async componentWillMount() {
         await this.loadWeb3();
@@ -25,7 +24,7 @@ class Home extends React.Component {
     }
     async loadBlockchainData() {
         if (window.web3) {
-            const web3 = web3;
+            const web3 = window.web3;
             const accounts = await web3.eth.getAccounts();
             this.setState({ account: accounts[0] });
             const networkId = await web3.eth.net.getId();
