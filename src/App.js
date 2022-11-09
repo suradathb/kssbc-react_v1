@@ -3,7 +3,13 @@ import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/Home';
-import ListUser from './components/ListUser';
+import TransOrder from './components/TransOrder';
+import ListMapUser from './components/ListMapUser';
+import ApproveList from './components/ApproveList';
+import AddBonusPoint from './components/AddBonusPoint';
+import ProductItem from './components/ProductItem';
+import ProductCreate from './components/ProductCreate';
+import ProductEdit from './components/ProductEdit';
 
 
 class App extends React.Component {
@@ -20,8 +26,14 @@ class App extends React.Component {
         <Header />
         <Routes>
           <Route path="/" element={ <Home/> }/>
+          <Route path="/user" element={<ListMapUser/>}/>
           {/* <Route path='/adduser' element={<CreateUser/>} /> */}
-          <Route path='/list' element={<ListUser/>}/>
+          <Route path='/transorder' element={<TransOrder/>}/>
+          <Route path='/approve' element={<ApproveList/>}/>
+          <Route path='/addbonus' element={ <AddBonusPoint/>} />
+          <Route path='/product' element={<ProductItem/>}/>
+          <Route path='/addproduct' element={<ProductCreate/>}/>
+          <Route path='/editproduct/:id' element={<ProductEdit/>}/>
         </Routes>
         <Footer />
       </>

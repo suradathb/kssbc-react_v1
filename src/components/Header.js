@@ -2,12 +2,15 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
+import Axios from 'axios';
+
 
 class Header extends React.Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
     await this.usernameshow();
+    await this.getUser();
   }
   async loadWeb3() {
     if (window.web3) {
@@ -54,7 +57,12 @@ class Header extends React.Component {
   currencyFormat(num) {
     return Intl.NumberFormat().format(num);
   }
-
+  async getUser(){
+    Axios.get('http://localhost:5000/api/v1/users').then((response) => {
+      // console.log(response.data);
+      this.setState({user:response.data});
+    });
+  }
   async usernameshow() {
     const user = [
       { id: 1, username: "admin", password: "password@1", address: "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736", hashkey: "e2024b93133398322d3e02b09108668571983a6b79e91f68b35a9e261c58f3a5", type: "A" },
@@ -81,6 +89,7 @@ class Header extends React.Component {
       symbol: "",
       decimals: 0,
       acname: "",
+      user:[]
 
     }
   }
@@ -124,7 +133,7 @@ class Header extends React.Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/list">
+                    <Link className="nav-link" to="/transorder">
                       Admin
                     </Link>
                   </li>
