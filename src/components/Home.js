@@ -1,14 +1,17 @@
-
 import React from "react";
 import KSSBC from './../abis/KSSBonusToken.json';
 import Web3 from 'web3';
 import Axios from 'axios';
+import Moment from "moment";
 
 class Home extends React.Component {
     async componentWillMount() {
         await this.loadWeb3();
         await this.loadBlockchainData();
+        await this.getTransOrder();
+        await this.getuserAccount();
         await this.getProduct();
+        await this.getuserBurn();
     }
     async loadWeb3() {
         if (window.web3) {
@@ -46,22 +49,91 @@ class Home extends React.Component {
             this.setState({ product: response.data });
         });
     }
-    useradditem = (num, item,price) => e => {
-        // console.log(item,price);
-        const addressburn = '0x5e1A5eE30870982ddaa11a5740DbDd5CA0334335';
-        // this.setState({
-        //     item: [...this.state.item, item]
-        // });
-        this.setState({ count: num });
-        this.state.contract.methods
-            .transfer(addressburn, price)
-            .send({ from: this.state.account })
-            .once("receipt", (receipt) => {
-                console.log("ToSusess", addressburn, ":", price);
-                window.location.reload();
+    async getuserAccount() {
+        Axios.get('http://localhost:5000/api/v1/users').then((response) => {
+            response.data.map((account, key) => {
+                if (account.address === this.state.account) {
+                    // console.log(account.username);
+                    this.setState({ useraccount: account.username });
+                }
+            })
+
+        });
+    }
+    async getuserBurn() {
+        Axios.get('http://localhost:5000/api/v1/users/3').then((response) => {
+            response.data.map((brun)=>{
+                // console.log(brun.address);
+                this.setState({ userburn: brun.address });
+            })
+            
         });
     }
 
+    async getTransOrder() {
+        Axios.get('http://localhost:5000/api/v1/productorders').then((response) => {
+            if (response.data) {
+                var codenum = "PID0001";
+                this.setState({ codeNo: codenum });
+            }
+            response.data.map((code, key) => {
+                const splitdata = code.order_no;
+                const number = splitdata.split("PID");
+                let result = number.map(i => Number(i));
+                var codename = Math.max(result[1]) + 1;
+                var codenum = "PID000" + codename;
+                this.setState({ codeNo: codenum });
+
+                // console.log(code.item_no);
+            });
+        });
+    }
+    useradditem = (name, price) => e => {
+        const addressburn = this.state.userburn;
+        if (this.state.balance <= price) {
+            alert("ยอด Token ไม่เพียงพอในการแลกรับของขวัญ");
+        } else {
+            this.state.contract.methods
+                .transfer(addressburn, price)
+                .send({ from: this.state.account })
+                .once("receipt", (receipt) => {
+                    console.log("ToSusess", addressburn, ":", price);
+                    this.createProductOrder(name,price);
+                });
+        }
+    }
+    createProductOrder(name,price){
+        // const addressburn = this.state.userburn.map((name) => name.address);
+        const username = this.state.useraccount;
+        const data = {
+            order_no: this.state.codeNo,
+            order_item: name,
+            point_token: price,
+            type: "sell",
+            order_date: new Date,
+            username: username,
+            balance: this.state.balance
+        }
+        Axios({
+
+            // Endpoint to send files
+            url: "http://localhost:5000/api/v1/productorders",
+            method: "POST",
+            headers: {
+                // Add any auth token here
+                authorization: "your token comes here",
+            },
+            // Attaching the form data
+            data: data,
+        })
+            // Handle the response from backend here
+            .then((res) => { window.location.href = "/"; })
+            // Catch errors if any
+            .catch((err) => { });
+    }
+    currencyFormat(num) {
+        return Intl.NumberFormat().format(num);
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -70,9 +142,12 @@ class Home extends React.Component {
             balance: "",
             decimals: "",
             holders: "",
+            codeNo: "",
+            userburn: "",
             count: 0,
             item: [],
-            product: []
+            product: [],
+            useraccount: ""
 
         }
     }
@@ -163,7 +238,7 @@ class Home extends React.Component {
                                             <div className="col-md-4">
                                                 <div className="card mb-4 product-wap rounded-0">
                                                     <div className="card rounded-0">
-                                                        <img className="card-img rounded-0 img-fluid" src="assets/images/Item_01.jpg" />
+                                                        <img className="card-img rounded-0 img-fluid" src={`assets/images/Item_0${key}.jpg`} />
                                                         <div className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                                             <ul className="list-unstyled">
                                                                 {/* <li><a className="btn btn-success text-white" href="shop-single.html"><i className="far fa-heart"></i></a></li> */}
@@ -193,7 +268,7 @@ class Home extends React.Component {
                                                                 <i className="text-muted fa fa-star"></i>
                                                             </li>
                                                         </ul>
-                                                        <p className="text-center mb-0">KSSBC {val.price} <button className="btn btn-success text-white mt-2" onClick={this.useradditem(this.state.count + 1, val.item_no,val.price)} href="shop-single.html"><i className="fas fa-cart-plus"></i></button></p>
+                                                        <p className="text-center mb-0">KSSBC {this.currencyFormat(val.price)} <button className="btn btn-success text-white mt-2" onClick={this.useradditem(val.item_name, val.price)} href="shop-single.html"><i className="fas fa-cart-plus"></i></button></p>
                                                     </div>
                                                 </div>
                                             </div>

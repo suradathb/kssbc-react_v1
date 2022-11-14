@@ -10,6 +10,8 @@ import AddBonusPoint from './components/AddBonusPoint';
 import ProductItem from './components/ProductItem';
 import ProductCreate from './components/ProductCreate';
 import ProductEdit from './components/ProductEdit';
+import ApprovedBonusPoint from './components/ApprovedBonusPoint';
+import Login from './components/Login';
 
 
 class App extends React.Component {
@@ -21,16 +23,19 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <>
         <Header />
         <Routes>
+          <Route path='/login' element={<Login/>}/>
           <Route path="/" element={ <Home/> }/>
           <Route path="/user" element={<ListMapUser/>}/>
           {/* <Route path='/adduser' element={<CreateUser/>} /> */}
           <Route path='/transorder' element={<TransOrder/>}/>
           <Route path='/approve' element={<ApproveList/>}/>
           <Route path='/addbonus' element={ <AddBonusPoint/>} />
+          <Route path='/approveed' element={<ApprovedBonusPoint/>}/>
           <Route path='/product' element={<ProductItem/>}/>
           <Route path='/addproduct' element={<ProductCreate/>}/>
           <Route path='/editproduct/:id' element={<ProductEdit/>}/>

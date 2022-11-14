@@ -147,6 +147,11 @@ class Header extends React.Component {
                       Abount
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className='nav-link' to="/login">
+                      Login
+                    </Link>
+                  </li>
                   {/* <li className="nav-item">ผู้ใช้ : {this.state.acname} </li> */}
                 </ul>
               </div>

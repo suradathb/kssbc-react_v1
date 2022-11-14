@@ -1,16 +1,16 @@
 import React from 'react';
 import Axios from 'axios';
-import KSSBC from './../abis/KSSBonusToken.json';
+import KSSBC from '../abis/KSSBonusToken.json';
 import Web3 from 'web3';
 import SubMenu from './SubMenu';
 import { Link } from "react-router-dom";
+import Moment from "moment";
 
-class AddBonusPoint extends React.Component {
+class ApprovedBonusPoint extends React.Component {
     async componentWillMount() {
+        await this.getPoint();
         await this.loadWeb3();
         await this.loadBlockchainData();
-        await this.getPoint();
-        await this.getUser();
     }
     async loadWeb3() {
         if (window.web3) {
@@ -46,56 +46,17 @@ class AddBonusPoint extends React.Component {
             this.setState({ dbtrans: response.data });
         });
     }
-    async getUser() {
-        Axios.get('http://localhost:5000/api/v1/users').then((response) => {
-            // console.log(response.data);
-            response.data.map((user,key)=> {
-                // console.log(user.address,this.state.account);
-                if(user.address === this.state.account){
-                    this.setState({admin_approve:user.username});
-                }
-            })
-            // if(user.address === this.state.account)
-            this.setState({ dbuser: response.data });
-        });
-    }
-    AddTokenBonus = (address, token,id,order_no,order_item,volume,username) => e => {
+    AddTokenBonus = (address, token) => e => {
+        console.log(address, token);
         this.state.contract.methods
             .transfer(address, token)
             .send({ from: this.state.account })
             .once("receipt", (receipt) => {
                 console.log("ToSusess", address, ":", token);
-                this.Approved(id,order_no,order_item,volume,token,username,address);
+                // window.location.reload();
             });
     }
-    Approved = (id,order_no,order_item,volume,token,username,address) => {
-        
-        const data = {
-            order_no:order_no,
-            order_item:order_item,
-            volume:volume,
-            point_token:token,
-            username:username,
-            admin_approve:this.state.admin_approve,
-            approve_date:new Date(),
-            address:address
-        }
-        Axios({
-            // Endpoint to send files
-            url: `http://localhost:5000/api/v1/transorder/${id}`,
-            method: "PUT",
-            headers: {
-              // Add any auth token here
-              authorization: "your token comes here",
-            },
-            // Attaching the form data
-            data: data,
-          })
-            // Handle the response from backend here
-            .then((res) => { window.location.href = "/addbonus"})
-            // Catch errors if any
-            .catch((err) => { });
-    }
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -105,7 +66,6 @@ class AddBonusPoint extends React.Component {
             contract: "",
             admin_approve:"",
             approve_date:""
-
         }
 
     }
@@ -129,8 +89,8 @@ class AddBonusPoint extends React.Component {
                             <SubMenu />
                         </div>
                         <div className='col-md-2'>
-                            <Link className="nav-link btn btn-success btn-lg px-3" to="/approveed">
-                                Approved
+                            <Link className="nav-link btn btn-success btn-lg px-3" to="/addbonus">
+                            <i class="fa fa-reply" aria-hidden="true"></i> Back
                             </Link>
                         </div>
                         <table className="table">
@@ -149,8 +109,6 @@ class AddBonusPoint extends React.Component {
                             <tbody>
                                 {this.state.dbtrans.map((val, key) => {
                                     if (val.admin_approve) {
-
-                                    } else {
                                         return (
                                             <>
                                                 <tr>
@@ -166,31 +124,23 @@ class AddBonusPoint extends React.Component {
                                                     <td>
                                                         {val.point_token}
                                                     </td>
-                                                    <td>{val.approve_date}</td>
+                                                    <td>{Moment(val.approve_date).format("DD-MM-YYYY")}</td>
                                                     <td>
                                                         {val.username}
                                                     </td>
                                                     <td>
-                                                        <input
+                                                        {/* <input
                                                             type="submit"
                                                             value="อนุมัติ Token"
                                                             className="btn btn-success btn-lg px-3"
-                                                            onClick={
-                                                                this.AddTokenBonus(
-                                                                    val.address, 
-                                                                    val.point_token,
-                                                                    val.id,
-                                                                    val.order_no,
-                                                                    val.order_item,
-                                                                    val.volume,
-                                                                    val.point_token,
-                                                                    val.username
-                                                                    )}
-                                                        />
+                                                            onClick={this.AddTokenBonus(val.address, val.point_token)}
+                                                        /> */}
                                                     </td>
                                                 </tr>
                                             </>
                                         )
+                                    } else {
+
                                     }
 
                                 })}
@@ -203,4 +153,4 @@ class AddBonusPoint extends React.Component {
     }
 }
 
-export default AddBonusPoint;
+export default ApprovedBonusPoint;

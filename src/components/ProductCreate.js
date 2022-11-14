@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, location } from "react-router-dom";
+
 
 class ProductCreate extends React.Component {
     constructor(props) {
@@ -9,13 +10,15 @@ class ProductCreate extends React.Component {
             dbproduct: [],
             buffer: null,
             result: "No result",
+            fileimage: "",
             codeNo: "",
             item_no: "",
             item_name: "",
             des: "",
             price: 0,
             errorMessage: "",
-            articleId: null
+            articleId: null,
+            imageFile :""
         };
         this.captureFile = this.captureFile.bind(this);
     }
@@ -25,26 +28,25 @@ class ProductCreate extends React.Component {
     }
     getProduct() {
         Axios.get('http://localhost:5000/api/v1/products').then((response) => {
-            console.log(response.data)
-            if(response.data)
-            {
+            // console.log(response.data)
+            if (response.data) {
                 var codenum = "PID0001";
                 this.setState({ codeNo: codenum });
             }
             response.data.map((code, key) => {
-                    const splitdata = code.item_no;
-                    const number = splitdata.split("PID");
-                    // number.map((num)=>{
-                    //     const cusnumber = num.split("0");
-                    //     var codename = parseInt(cusnumber,10);
-                    //     console.log(codename);
+                const splitdata = code.item_no;
+                const number = splitdata.split("PID");
+                // number.map((num)=>{
+                //     const cusnumber = num.split("0");
+                //     var codename = parseInt(cusnumber,10);
+                //     console.log(codename);
 
-                    // })
-                    let result = number.map(i => Number(i));
-                    var codename = Math.max(result[1]) + 1;
-                    var codenum = "PID000" + codename;
-                    this.setState({ codeNo: codenum });
-                
+                // })
+                let result = number.map(i => Number(i));
+                var codename = Math.max(result[1]) + 1;
+                var codenum = "PID000" + codename;
+                this.setState({ codeNo: codenum });
+
                 // console.log(code.item_no);
             });
             // this.setState({ db_users: [...this.state.db_users, response.data] });
@@ -77,14 +79,41 @@ class ProductCreate extends React.Component {
     }
     captureFile(event) {
         event.preventDefault();
+
         const file = event.target.files[0];
-        const reader = new window.FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onloadend = () => {
-            this.setState({ buffer: Buffer(reader.result) });
-            // console.log('buffer', this.state.buffer)
-        };
+        const formData = new FormData();
+        formData.append("myFile", file, file.name);
+        console.log(file, file.name, file.webkitRelativePath)
+        const data = {
+            file_image: event.target.files[0].name
+        }
+
+        // Axios({
+
+        //     // Endpoint to send files
+        //     url: "http://localhost:5000/api/v1/imagefile",
+        //     method: "POST",
+        //     headers: {
+        //         // Add any auth token here
+        //         authorization: "your token comes here",
+        //     },
+        //     // Attaching the form data
+        //     data: data,
+        // })
+        //     // Handle the response from backend here
+        //     .then((res) => { /*window.location.href = "/addproduct";*/ })
+        //     // Catch errors if any
+        //     .catch((err) => { });
+        // this.setState({fileimage:URL.createObjectURL(event.target.files[0])})
+        // this.upimage(URL.createObjectURL(event.target.files[0]));
+        // const reader = new window.FileReader();
+        // reader.readAsArrayBuffer(file);
+        // reader.onloadend = () => {
+        //     this.setState({ buffer: Buffer(reader.result) });
+        //     console.log('buffer', Buffer(reader.result))
+        // };
     }
+  
     render() {
         return (
             <>
@@ -113,8 +142,9 @@ class ProductCreate extends React.Component {
                             <div className="row">
                                 <div className="form-group col-md-9 mb-3">
                                     <div className="form-group">
+                                        <img src={this.state.fileimage} />
                                         <div className="custom-file">
-                                            <input type="file" onChange={this.captureFile} />
+                                            <input type="file" onChange={this.handleFileInputChange} />
                                         </div>
                                     </div>
                                 </div>

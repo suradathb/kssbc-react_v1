@@ -45,6 +45,8 @@ class TransOrder extends React.Component {
             this.setState({ contract: kssBonus });
             const balance = await kssBonus.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
             this.setState({ balance: balance });
+            const supply = await kssBonus.methods.totalSupply().call({from:accounts[0]});
+            this.setState({totalSupply:supply});
         }
     }
     async getUser() {
@@ -55,62 +57,50 @@ class TransOrder extends React.Component {
     }
     async getNameUser() {
         Axios.get('http://localhost:5000/api/v1/users').then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             this.setState({ dbuser: response.data });
         });
     }
-    update = (id,point) => {
-        // console.log(id,point);
-        var types = "price";
-        var admins = "admin";
-        var points = point;
-        Axios.put("http://localhost:5000/update", {type: types,admin: admins,point: point,id: id}).then((response) => {
-            // console.log(id,point,types,admins);
-            this.setState({
-                dbitemorder : [
-                    this.state.dbitemorder.map((val) => {
-                        return val.id = id ? {
-                            id: val.id,
-                            order_no: val.order_no,
-                            order_item: val.order_item,
-                            volume: val.volume,
-                            point_token: val.point_token,
-                            type: types,
-                            order_date: val.order_date,
-                            username: val.username,
-                            balance: val.balance,
-                            admin_approve: admins,
-                            point_token_broken: points,
-                            approve_date: val.approve_date
-                        } : val;
-                    })
-                ]
-            });
-            
+    update = (val) => {
+        const data = {
+            id: val.id,
+            order_no: val.order_no,
+            order_item: val.order_item,
+            point_token: val.point_token,
+            type: "price",
+            order_date: val.order_date,
+            username: val.username,
+            balance: val.balance,
+            admin_approve: val.admin_approve,
+            point_token_broken: val.point_token,
+            approve_date: new Date
+        }
+        // console.log(data)
+        Axios({
+            // Endpoint to send files
+            url: `http://localhost:5000/api/v1/productorders/${val.id}`,
+            method: "PUT",
+            headers: {
+                // Add any auth token here
+                authorization: "your token comes here",
+            },
+            // Attaching the form data
+            data: data,
         })
+            // Handle the response from backend here
+            .then((res) => { window.location.href = "/transorder"; })
+            // Catch errors if any
+            .catch((err) => { });
     }
-    shoot = (id, point, username) => e => {
-        console.log(id, point, username);
-
-        const addressburn = '0x5e1A5eE30870982ddaa11a5740DbDd5CA0334335';
-        var addressmap = '';
-        const gatname = this.state.dbuser.map((address) => {
-            if (address.username == username) {
-                addressmap =  address.address;
-                // console.log(addressmap);
-            }
-        });
-     
+    // Brun Token 
+    transferOrder = (val) => e => {
         this.state.contract.methods
-            .transfer(addressmap, point)
+            .burn(val.point_token)
             .send({ from: this.state.account })
             .once("receipt", (receipt) => {
-                console.log("ToSusess", addressmap, ":", point);
-                this.update(id,point);
-                // document.getElementById("contentCowCoin").innerHTML = "";
-                window.location.reload();
+                console.log("ToSusess Brun",val.order_no, ":", val.point_token);
+                this.update(val);
         });
-        // console.log(addCert);
     }
 
     constructor(props) {
@@ -126,20 +116,21 @@ class TransOrder extends React.Component {
             acname: "",
             address: "",
             dbuser: [],
-            dbitemorder: []
+            dbitemorder: [],
+            totalSupply:0
 
         }
     }
-    
+
     render() {
         return (
             <>
                 <div className="container-fluid bg-light py-5">
-                    <div className="col-md-6 m-auto text-center">
+                    <div className="col-md-8 m-auto text-center">
                         <h1 className="h1">TRANS ORDER</h1>
-                        <div className="input-group mb-3 text-center">
+                        <div className="input-group mb-8 text-center">
                             <p>
-                            ทำหน้าที่ในการ burn เข้ากระเป๋าสำหรับการ Burn Token  ทิ้งไป
+                                Balance เหรียญคงเหลือที่ให้บริการได้ทั้งหมด {this.state.totalSupply} KSSBC
                             </p>
 
                         </div>
@@ -155,7 +146,6 @@ class TransOrder extends React.Component {
                                     <th scope="col">Order No</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Volume</th>
                                     <th scope="col">Point Token</th>
                                     <th scope='col'></th>
                                 </tr>
@@ -170,14 +160,13 @@ class TransOrder extends React.Component {
                                                     <td>{val.order_no}</td>
                                                     <td>{val.order_item}</td>
                                                     <td>{Moment(val.order_date).format("DD-MM-YYYY")}</td>
-                                                    <td>{Intl.NumberFormat().format(val.volume)}</td>
                                                     <td>{Intl.NumberFormat().format(val.point_token)} KSSBC</td>
                                                     <td>
                                                         <input
                                                             type="submit"
                                                             value={`อนุมัติ ${val.order_no}`}
                                                             className="btn btn-success btn-lg px-3"
-                                                            onClick={this.shoot(val.id, val.point_token, val.username)}
+                                                            onClick={this.transferOrder(val)}
                                                         />
                                                     </td>
                                                 </tr>

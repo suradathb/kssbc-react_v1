@@ -93,7 +93,6 @@ class ApproveList extends React.Component {
                                     <th scope="col">Order No</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Volume</th>
                                     <th scope="col">Point Token</th>
                                     <th scope='col'></th>
                                 </tr>
@@ -108,7 +107,6 @@ class ApproveList extends React.Component {
                                                     <td>{val.order_no}</td>
                                                     <td>{val.order_item}</td>
                                                     <td>{Moment(val.order_date).format("DD-MM-YYYY")}</td>
-                                                    <td>{Intl.NumberFormat().format(val.volume)}</td>
                                                     <td>{Intl.NumberFormat().format(val.point_token)} KSSBC</td>
                                                     <td>
                                                         {/* <input
