@@ -37,6 +37,11 @@ class SubMenu extends React.Component {
                                Add Bonus Point
                             </Link>
                         </li>
+                        <li>
+                            <Link className="nav-link" to="/block">
+                               Trans Blocks
+                            </Link>
+                        </li>
                     </ul>
                 </div>
                 </nav>

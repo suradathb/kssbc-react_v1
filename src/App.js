@@ -12,6 +12,7 @@ import ProductCreate from './components/ProductCreate';
 import ProductEdit from './components/ProductEdit';
 import ApprovedBonusPoint from './components/ApprovedBonusPoint';
 import Login from './components/Login';
+import TransBlock from './components/TransBlock';
 
 
 class App extends React.Component {
@@ -30,6 +31,7 @@ class App extends React.Component {
         <Routes>
           <Route path='/login' element={<Login/>}/>
           <Route path="/" element={ <Home/> }/>
+          <Route path='/block' element={<TransBlock/>}/>
           <Route path="/user" element={<ListMapUser/>}/>
           {/* <Route path='/adduser' element={<CreateUser/>} /> */}
           <Route path='/transorder' element={<TransOrder/>}/>
