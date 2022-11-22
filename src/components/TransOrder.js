@@ -72,8 +72,8 @@ class TransOrder extends React.Component {
             username: val.username,
             balance: val.balance,
             admin_approve: val.admin_approve,
-            point_token_broken: val.point_token,
-            approve_date: new Date
+            point_token_broken: val.point_token
+            // approve_date: new Date
         }
         // console.log(data)
         Axios({

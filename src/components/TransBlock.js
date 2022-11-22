@@ -44,7 +44,7 @@ class TransBlock extends React.Component {
     Axios.get(
       `https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0x4ccF3E28D3BE90a506FCB9C7E8fB598D80134383&address=${this.state.account}&offset=30&sort=asc&apikey=YourApiKeyToken`
     ).then((response) => {
-    //   console.log(response.data.result);
+      //   console.log(response.data.result);
       this.setState({ dbtrans: response.data.result });
     });
   }
@@ -59,14 +59,14 @@ class TransBlock extends React.Component {
     return chars + "...";
   }
   dateStamp(trdate) {
-    if (trdate != isNaN) {
-      var date = new Date(trdate);
-    //   console.log(date);
-      return date;
-    }
+    var numdate = parseInt(trdate);
+    // console.log(Moment(new Date(numdate * 1000)).format('DD/MM/YYYY hh:MM'));
+    // var newformat = Moment(new Date(numdate * 1000)).format('DD/MM/YYYY');
+    var newformat = Moment(new Date(numdate * 1000)).format('DD MMMM YYYY');
+    return newformat;
   }
 
-  showcontractaddress(address){
+  showcontractaddress(address) {
     var linkname = `https://mumbai.polygonscan.com/token/0x4ccF3E28D3BE90a506FCB9C7E8fB598D80134383?a=${address}`;
     return linkname;
   }
@@ -111,17 +111,36 @@ class TransBlock extends React.Component {
               </thead>
               <tbody>
                 {this.state.dbtrans.map((name, key) => {
-                //  console.log(datet);
-                  if (name.from === "0x0000000000000000000000000000000000000000") {
+                  //  console.log(datet);
+                  if (
+                    name.from === "0x0000000000000000000000000000000000000000"
+                  ) {
                   } else {
                     return (
                       <>
                         <tr key={key}>
-                          <td><a href={`https://mumbai.polygonscan.com/tx/${name.hash}`}>{this.CustHashString(name.hash)}</a></td>
-                          <td>{name.timeStamp}</td>
-                          <td><a href={this.showcontractaddress(name.from)}>{this.CustHashString(name.from)}</a></td>
-                          <td><a href={this.showcontractaddress(name.to)}>{this.CustHashString(name.to)}</a></td>
-                          <td>{name.value}{name.tokenSymbol}</td>
+                          <td>
+                            <a
+                              href={`https://mumbai.polygonscan.com/tx/${name.hash}`}
+                            >
+                              {this.CustHashString(name.hash)}
+                            </a>
+                          </td>
+                          <td>{this.dateStamp(name.timeStamp)}</td>
+                          <td>
+                            <a href={this.showcontractaddress(name.from)}>
+                              {this.CustHashString(name.from)}
+                            </a>
+                          </td>
+                          <td>
+                            <a href={this.showcontractaddress(name.to)}>
+                              {this.CustHashString(name.to)}
+                            </a>
+                          </td>
+                          <td>
+                            {name.value}
+                            {name.tokenSymbol}
+                          </td>
                         </tr>
                       </>
                     );
