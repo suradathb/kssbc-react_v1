@@ -14,6 +14,7 @@ import ApprovedBonusPoint from './components/ApprovedBonusPoint';
 import Login from './components/Login';
 import TransBlock from './components/TransBlock';
 import SmartContract from './components/SmartContract';
+import Abount from './components/Abount';
 
 
 
@@ -35,7 +36,8 @@ class App extends React.Component {
           <Route path="/" element={ <Home/> }/>
           <Route path='/block' element={<TransBlock/>}/>
           <Route path="/user" element={<ListMapUser/>}/>
-          <Route path='contract' element={<SmartContract/>}/>
+          <Route path='/contract' element={<SmartContract/>}/>
+          <Route path='/abount' element={<Abount/>}/>
           {/* <Route path='/adduser' element={<CreateUser/>} /> */}
           <Route path='/transorder' element={<TransOrder/>}/>
           <Route path='/approve' element={<ApproveList/>}/>

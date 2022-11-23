@@ -43,8 +43,11 @@ class SmartContract extends React.Component {
         .allowance("0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736", accounts[0])
         .call({ from: accounts[0] });
         console.log(kssBonus);
-      const balance = await kssBonus.methods
+      const totalSupply = await kssBonus.methods
         .totalSupply()
+        .call({ from: accounts[0] });
+        const balance = await kssBonus.methods
+        .balanceOf(accounts[0])
         .call({ from: accounts[0] });
       const symbol = await kssBonus.methods
         .symbol()
@@ -57,8 +60,9 @@ class SmartContract extends React.Component {
         name: name,
         decimals: decimals,
         symbol: symbol,
-        totalSupply: balance,
+        totalSupply: totalSupply,
         allowance: allowance,
+        balance : balance,
       });
     }
   }
@@ -73,6 +77,7 @@ class SmartContract extends React.Component {
       name: "",
       decimals: "",
       fromaddress : "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736",
+      balance : 0,
     };
   }
   AddTokenBonus = (
@@ -151,6 +156,12 @@ class SmartContract extends React.Component {
                 </tr>
                 <tr>
                   <td>5</td>
+                  <td>balanceOf()</td>
+                  <td>แสดงยอดคงเหลือ Address  ที่เข้าใช้งาน</td>
+                  <td>{this.state.balance} KSSBC</td>
+                </tr>
+                <tr>
+                  <td>6</td>
                   <td>Transfer(address,amount)</td>
                   <td>โอน Token ผู้ใช้ให้กับ address เป้าหมาย</td>
                   <td>
@@ -163,7 +174,7 @@ class SmartContract extends React.Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>6</td>
+                  <td>7</td>
                   <td>Burn(amount)</td>
                   <td>
                     การสั่ง Burn Token ด้วย address ที่ใช้งานอยู่ ยอดการ burn
@@ -179,7 +190,7 @@ class SmartContract extends React.Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>7</td>
+                  <td>8</td>
                   <td>Approve(spender,amount)</td>
                   <td>สั่งจ่ายเช็ค Token ให้ address เป้าหมาย</td>
                   <td>
@@ -192,7 +203,7 @@ class SmartContract extends React.Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>8</td>
+                  <td>9</td>
                   <td>allowance(tokenOwner ,spender)</td>
                   <td>ใช้ตรวจสอบยอดเงินที่ approve() ไว้</td>
                   <td>
@@ -200,7 +211,7 @@ class SmartContract extends React.Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>9</td>
+                  <td>10</td>
                   <td>TransferFrom(from,to,amount)</td>
                   <td>สั่งจ่ายเช็ค Token ให้ address เป้าหมาย</td>
                   <td>
