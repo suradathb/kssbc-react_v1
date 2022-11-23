@@ -62,7 +62,7 @@ class TransBlock extends React.Component {
     var numdate = parseInt(trdate);
     // console.log(Moment(new Date(numdate * 1000)).format('DD/MM/YYYY hh:MM'));
     // var newformat = Moment(new Date(numdate * 1000)).format('DD/MM/YYYY');
-    var newformat = Moment(new Date(numdate * 1000)).format('DD MMMM YYYY');
+    var newformat = Moment(new Date(numdate * 1000)).format("DD MMMM YYYY");
     return newformat;
   }
 

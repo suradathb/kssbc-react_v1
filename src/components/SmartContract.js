@@ -42,11 +42,11 @@ class SmartContract extends React.Component {
       const allowance = await kssBonus.methods
         .allowance("0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736", accounts[0])
         .call({ from: accounts[0] });
-        console.log(kssBonus);
+      // console.log(kssBonus);
       const totalSupply = await kssBonus.methods
         .totalSupply()
         .call({ from: accounts[0] });
-        const balance = await kssBonus.methods
+      const balance = await kssBonus.methods
         .balanceOf(accounts[0])
         .call({ from: accounts[0] });
       const symbol = await kssBonus.methods
@@ -62,7 +62,7 @@ class SmartContract extends React.Component {
         symbol: symbol,
         totalSupply: totalSupply,
         allowance: allowance,
-        balance : balance,
+        balance: balance,
       });
     }
   }
@@ -72,12 +72,12 @@ class SmartContract extends React.Component {
       account: "",
       contract: "",
       totalSupply: 0,
-      allowance:0,
+      allowance: 0,
       symbol: "",
       name: "",
       decimals: "",
-      fromaddress : "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736",
-      balance : 0,
+      fromaddress: "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736",
+      balance: 0,
     };
   }
   AddTokenBonus = (
@@ -157,7 +157,7 @@ class SmartContract extends React.Component {
                 <tr>
                   <td>5</td>
                   <td>balanceOf()</td>
-                  <td>แสดงยอดคงเหลือ Address  ที่เข้าใช้งาน</td>
+                  <td>แสดงยอดคงเหลือ Address ที่เข้าใช้งาน</td>
                   <td>{this.state.balance} KSSBC</td>
                 </tr>
                 <tr>
@@ -206,9 +206,7 @@ class SmartContract extends React.Component {
                   <td>9</td>
                   <td>allowance(tokenOwner ,spender)</td>
                   <td>ใช้ตรวจสอบยอดเงินที่ approve() ไว้</td>
-                  <td>
-                    คุณมีเช็ครอรับ {this.state.allowance} KSSBC
-                  </td>
+                  <td>คุณมีเช็ครอรับ {this.state.allowance} KSSBC</td>
                 </tr>
                 <tr>
                   <td>10</td>
@@ -216,11 +214,11 @@ class SmartContract extends React.Component {
                   <td>สั่งจ่ายเช็ค Token ให้ address เป้าหมาย</td>
                   <td>
                     <DialogTransferFrom
-                      state = {{
+                      state={{
                         contract: this.state.contract,
                         account: this.state.account,
-                        from : this.state.fromaddress,
-                        price : this.state.allowance,
+                        from: this.state.fromaddress,
+                        price: this.state.allowance,
                       }}
                     />
                   </td>

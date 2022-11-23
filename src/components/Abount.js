@@ -33,65 +33,71 @@ class Abount extends React.Component {
             <table className="table">
               <thead>
                 <tr>
-                    <th>minimum/maximum</th>
-                    <th>รายละเอียด</th>
+                  <th>minimum/maximum</th>
+                  <th>รายละเอียด</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                    <td>ความต้องการขั้นต่ำ</td>
-                    <td>
-                        <li>CPU ที่มี 2+ คอร์</li>
-                        <li>แรม 8GB</li>
-                        <li>พื้นที่ว่างในดิสก์ 700GB</li>
-                        <li>แบนด์วิธ 10+ MBit/s</li>
-                    </td>
+                  <td>ความต้องการขั้นต่ำ</td>
+                  <td>
+                    <li>CPU ที่มี 2+ คอร์</li>
+                    <li>แรม 8GB</li>
+                    <li>พื้นที่ว่างในดิสก์ 700GB</li>
+                    <li>แบนด์วิธ 10+ MBit/s</li>
+                  </td>
                 </tr>
                 <tr>
-                    <td>ข้อมูลจำเพาะที่แนะนำ</td>
-                    <td>
-                        <li>CPU เร็วพร้อม 4+ คอร์</li>
-                        <li>แรม 16GB+</li>
-                        <li>SSD ที่รวดเร็วพร้อม 1+TB</li>
-                        <li>แบนด์วิธ 25+ MBit/s</li>
-                    </td>
+                  <td>ข้อมูลจำเพาะที่แนะนำ</td>
+                  <td>
+                    <li>CPU เร็วพร้อม 4+ คอร์</li>
+                    <li>แรม 16GB+</li>
+                    <li>SSD ที่รวดเร็วพร้อม 1+TB</li>
+                    <li>แบนด์วิธ 25+ MBit/s</li>
+                  </td>
                 </tr>
               </tbody>
             </table>
-            <p>โหมดการซิงค์และไคลเอ็นต์ที่คุณเลือกจะส่งผลต่อความต้องการพื้นที่ แต่เราได้ประมาณพื้นที่ดิสก์ที่คุณต้องการสำหรับแต่ละไคลเอ็นต์ด้านล่าง</p>
+            <p>
+              โหมดการซิงค์และไคลเอ็นต์ที่คุณเลือกจะส่งผลต่อความต้องการพื้นที่
+              แต่เราได้ประมาณพื้นที่ดิสก์ที่คุณต้องการสำหรับแต่ละไคลเอ็นต์ด้านล่าง
+            </p>
 
             <table className="table">
               <thead>
                 <tr>
-                    <th>ลูกค้า</th>
-                    <th>ขนาดดิสก์ (สแนปซิงค์)</th>
-                    <th>ขนาดดิสก์ (ไฟล์เก็บถาวรแบบเต็ม)</th>
+                  <th>ลูกค้า</th>
+                  <th>ขนาดดิสก์ (สแนปซิงค์)</th>
+                  <th>ขนาดดิสก์ (ไฟล์เก็บถาวรแบบเต็ม)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                    <td>Geth</td>
-                    <td>500GB+</td>
-                    <td>12TB+</td>
+                  <td>Geth</td>
+                  <td>500GB+</td>
+                  <td>12TB+</td>
                 </tr>
                 <tr>
-                    <td>Nethermind</td>
-                    <td>500GB+</td>
-                    <td>12TB+</td>
+                  <td>Nethermind</td>
+                  <td>500GB+</td>
+                  <td>12TB+</td>
                 </tr>
                 <tr>
-                    <td>Besu</td>
-                    <td>800GB+</td>
-                    <td>12TB+</td>
+                  <td>Besu</td>
+                  <td>800GB+</td>
+                  <td>12TB+</td>
                 </tr>
                 <tr>
-                    <td>Erigon</td>
-                    <td>N/A</td>
-                    <td>2.5TB+</td>
+                  <td>Erigon</td>
+                  <td>N/A</td>
+                  <td>2.5TB+</td>
                 </tr>
               </tbody>
             </table>
-            <li>หมายเหตุ: Erigon ไม่มีการซิงค์แบบสแนป แต่สามารถตัดแต่งแบบเต็มได้ (~500GB)</li>
+            <li>
+              หมายเหตุ: Erigon ไม่มีการซิงค์แบบสแนป แต่สามารถตัดแต่งแบบเต็มได้
+              (~500GB)
+            </li>
           </div>
         </div>
       </>

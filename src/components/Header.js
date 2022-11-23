@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
-import KSSBC from './../abis/KSSBonusToken.json';
-import Web3 from 'web3';
-import Axios from 'axios';
-
+import KSSBC from "./../abis/KSSBonusToken.json";
+import Web3 from "web3";
+import Axios from "axios";
 
 class Header extends React.Component {
   async componentWillMount() {
@@ -25,7 +24,6 @@ class Header extends React.Component {
         "Non-Ethereum browser detected. You should consider trying MetaMask!"
       );
     }
-
   }
   async loadBlockchainData() {
     if (window.web3) {
@@ -40,8 +38,9 @@ class Header extends React.Component {
       const KssBonus = new web3.eth.Contract(abi, address);
       this.setState({ contract: KssBonus });
       // balanceOf();
-      const balance = await KssBonus.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
-
+      const balance = await KssBonus.methods
+        .balanceOf(accounts[0])
+        .call({ from: accounts[0] });
 
       // symbol();
       const symbol = await KssBonus.methods.symbol().call();
@@ -57,19 +56,43 @@ class Header extends React.Component {
   currencyFormat(num) {
     return Intl.NumberFormat().format(num);
   }
-  async getUser(){
-    Axios.get('http://localhost:5000/api/v1/users').then((response) => {
+  async getUser() {
+    Axios.get("http://localhost:5000/api/v1/users").then((response) => {
       // console.log(response.data);
-      this.setState({user:response.data});
+      this.setState({ user: response.data });
     });
   }
   async usernameshow() {
     const user = [
-      { id: 1, username: "admin", password: "password@1", address: "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736", hashkey: "e2024b93133398322d3e02b09108668571983a6b79e91f68b35a9e261c58f3a5", type: "A" },
-      { id: 2, username: "user1", password: "password@1", address: "0xEDB04B6aBae9eb8f486767a4D6A433bB28288598", hashkey: "968ba4a0e1d01c637d9d8dd7958373bc3562d2215813f607779b07fbcddd8dd2", type: "A" },
-      { id: 3, username: "user2", password: "password@1", address: "0xEf5847A1dCA3908499065B11d236e1dB3a0f89aE", hashkey: "7112160e33d7de0353fe3c5989aeafbe41e6d0fe1cef2c9209c9670d5cfa6505", type: "A" },
-    ]
-    const test = user.filter(obj => {
+      {
+        id: 1,
+        username: "admin",
+        password: "password@1",
+        address: "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736",
+        hashkey:
+          "e2024b93133398322d3e02b09108668571983a6b79e91f68b35a9e261c58f3a5",
+        type: "A",
+      },
+      {
+        id: 2,
+        username: "user1",
+        password: "password@1",
+        address: "0xEDB04B6aBae9eb8f486767a4D6A433bB28288598",
+        hashkey:
+          "968ba4a0e1d01c637d9d8dd7958373bc3562d2215813f607779b07fbcddd8dd2",
+        type: "A",
+      },
+      {
+        id: 3,
+        username: "user2",
+        password: "password@1",
+        address: "0xEf5847A1dCA3908499065B11d236e1dB3a0f89aE",
+        hashkey:
+          "7112160e33d7de0353fe3c5989aeafbe41e6d0fe1cef2c9209c9670d5cfa6505",
+        type: "A",
+      },
+    ];
+    const test = user.filter((obj) => {
       if (obj.address === this.state.accounts) {
         try {
           this.setState({ acname: obj.username });
@@ -89,9 +112,8 @@ class Header extends React.Component {
       symbol: "",
       decimals: 0,
       acname: "",
-      user:[]
-
-    }
+      user: [],
+    };
   }
   render() {
     return (
@@ -148,7 +170,7 @@ class Header extends React.Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className='nav-link' to="/login">
+                    <Link className="nav-link" to="/login">
                       Login
                     </Link>
                   </li>
@@ -157,8 +179,11 @@ class Header extends React.Component {
               </div>
               <div className="navbar align-self-center d-flex">
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-
-                  <li className="nav-item"> {this.state.symbol} : {this.currencyFormat(this.state.balance)} wei</li>
+                  <li className="nav-item">
+                    {" "}
+                    {this.state.symbol} :{" "}
+                    {this.currencyFormat(this.state.balance)} wei
+                  </li>
                   {/* <li className="nav-item"> To ETH :{this.currencyFormat(this.state.balanceETH)}</li> */}
                 </ul>
               </div>
@@ -172,4 +197,3 @@ class Header extends React.Component {
 }
 
 export default Header;
-

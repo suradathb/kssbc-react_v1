@@ -1,6 +1,5 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
-
 
 class Footer extends React.Component {
   constructor(props) {
@@ -22,13 +21,16 @@ class Footer extends React.Component {
                 <ul className="list-unstyled text-light footer-link-list">
                   <li>
                     <i className="fas fa-map-marker-alt fa-fw"> </i>
-                    Krungsri Securities Public Company Limited, Head Office
-                    898 Ploenchit Tower, 3rd Floor, Ploenchit Road
-                    Lumpini Subdistrict, Pathumwan District, Bangkok 10330
+                    Krungsri Securities Public Company Limited, Head Office 898
+                    Ploenchit Tower, 3rd Floor, Ploenchit Road Lumpini
+                    Subdistrict, Pathumwan District, Bangkok 10330
                   </li>
                   <li>
                     <i className="fa fa-phone fa-fw"> </i>
-                    <a className="text-decoration-none" href="tel:+66(0) 2659 7000">
+                    <a
+                      className="text-decoration-none"
+                      href="tel:+66(0) 2659 7000"
+                    >
                       +66(0) 2659 7000
                     </a>
                   </li>
@@ -145,7 +147,8 @@ class Footer extends React.Component {
               <div className="row pt-2">
                 <div className="col-12">
                   <p className="text-left text-light con">
-                    Copyright &copy; 2022  Krungsri Securities Public Company Limited.{" "}
+                    Copyright &copy; 2022 Krungsri Securities Public Company
+                    Limited.{" "}
                     {/* <a
                       rel="sponsored"
                       href="https://www.facebook.com/gtonuy.shonan"

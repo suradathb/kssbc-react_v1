@@ -7,11 +7,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import LinearProgress from "@mui/material/LinearProgress";
 import Stack from "@mui/material/Stack";
-import {useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function DialogTransfer(props) {
   let location = useLocation();
-  const [contract,setContract] = React.useState(props.state.contract);
+  const [contract, setContract] = React.useState(props.state.contract);
   const [open, setOpen] = React.useState(false);
   const [dopen, setDopen] = React.useState(false);
   const [address, setAddress] = React.useState("");
@@ -33,14 +33,15 @@ function DialogTransfer(props) {
   const Transfer = () => {
     // console.log(props.state.contract.methods.transfer)
     Linear(true);
-    props.state.contract.methods.transfer(address, amount)
-    .send({ from: props.state.account })
-    .once("receipt", (receipt) => {
+    props.state.contract.methods
+      .transfer(address, amount)
+      .send({ from: props.state.account })
+      .once("receipt", (receipt) => {
         console.log("ToSusess", address, ":", amount);
         setOpen(false);
         Linear(false);
         window.location.reload();
-    });
+      });
   };
   return (
     <div>
@@ -91,7 +92,9 @@ function DialogTransfer(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={Transfer} onClose={handleClose}>Transfer</Button>
+          <Button onClick={Transfer} onClose={handleClose}>
+            Transfer
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

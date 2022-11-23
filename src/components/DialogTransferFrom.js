@@ -7,11 +7,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import LinearProgress from "@mui/material/LinearProgress";
 import Stack from "@mui/material/Stack";
-import {useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function DialogTransferFrom(props) {
   let location = useLocation();
-  const [contract,setContract] = React.useState(props.state.contract);
+  const [contract, setContract] = React.useState(props.state.contract);
   const [open, setOpen] = React.useState(false);
   const [dopen, setDopen] = React.useState(false);
   const [addressfrom, setAddressFrom] = React.useState("");
@@ -32,16 +32,23 @@ function DialogTransferFrom(props) {
     // setType(event.target.value);
   };
   const Transfer = () => {
-   
     Linear(true);
-    props.state.contract.methods.transferFrom(addressfrom,addressto, amount)
-    .send({ from: props.state.account })
-    .once("receipt", (receipt) => {
-        console.log("ToSusess From", addressfrom,"To :",addressto ,": ", amount);
+    props.state.contract.methods
+      .transferFrom(addressfrom, addressto, amount)
+      .send({ from: props.state.account })
+      .once("receipt", (receipt) => {
+        console.log(
+          "ToSusess From",
+          addressfrom,
+          "To :",
+          addressto,
+          ": ",
+          amount
+        );
         setOpen(false);
         Linear(false);
         window.location.reload();
-    });
+      });
   };
   return (
     <div>
