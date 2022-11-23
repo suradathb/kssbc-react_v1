@@ -70,7 +70,7 @@ class Footer extends React.Component {
                     </Link>
                   </li>
                   <li>
-                    <Link className="text-decoration-none" to="/search">
+                    <Link className="text-decoration-none" to="/transorder">
                       Admin
                     </Link>
                   </li>
@@ -80,8 +80,8 @@ class Footer extends React.Component {
                     </Link>
                   </li>
                   <li>
-                    <Link className="text-decoration-none" to="/contact">
-                      FAQ
+                    <Link className="text-decoration-none" to="/login">
+                      Login
                     </Link>
                   </li>
                 </ul>
