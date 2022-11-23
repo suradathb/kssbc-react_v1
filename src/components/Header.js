@@ -138,8 +138,8 @@ class Header extends React.Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/abount">
-                      FAQ
+                    <Link className="nav-link" to="/contract">
+                      ERC20
                     </Link>
                   </li>
                   <li className="nav-item">
