@@ -9548,27 +9548,13 @@
   "ast": {
     "absolutePath": "project:/contracts/KSSBonusToken.sol",
     "exportedSymbols": {
-      "Context": [
-        805
-      ],
-      "ERC20": [
-        607
-      ],
-      "ERC20Burnable": [
-        729
-      ],
-      "ERC20PresetFixedSupply": [
-        783
-      ],
-      "IERC20": [
-        685
-      ],
-      "IERC20Metadata": [
-        754
-      ],
-      "KSSBonusToken": [
-        21
-      ]
+      "Context": [805],
+      "ERC20": [607],
+      "ERC20Burnable": [729],
+      "ERC20PresetFixedSupply": [783],
+      "IERC20": [685],
+      "IERC20Metadata": [754],
+      "KSSBonusToken": [21]
     },
     "id": 22,
     "license": "MIT",
@@ -9576,15 +9562,7 @@
     "nodes": [
       {
         "id": 1,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.4",
-          ".22",
-          "<",
-          "0.9",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.4", ".22", "<", "0.9", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:32:0"
       },
@@ -9621,15 +9599,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 21,
-        "linearizedBaseContracts": [
-          21,
-          783,
-          729,
-          607,
-          754,
-          685,
-          805
-        ],
+        "linearizedBaseContracts": [21, 783, 729, 607, 754, 685, 805],
         "name": "KSSBonusToken",
         "nameLocation": "178:13:0",
         "nodeType": "ContractDefinition",
