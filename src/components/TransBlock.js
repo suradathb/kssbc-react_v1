@@ -42,7 +42,7 @@ class TransBlock extends React.Component {
   }
   async TransBlock() {
     Axios.get(
-      `https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0x4ccF3E28D3BE90a506FCB9C7E8fB598D80134383&address=${this.state.account}&offset=30&sort=asc&apikey=YourApiKeyToken`
+      `https://api-testnet.polygonscan.com/api?module=account&action=tokentx&contractaddress=0x4ccF3E28D3BE90a506FCB9C7E8fB598D80134383&address=${this.state.account}&offset=30&sort=desc&apikey=YourApiKeyToken`
     ).then((response) => {
       //   console.log(response.data.result);
       this.setState({ dbtrans: response.data.result });

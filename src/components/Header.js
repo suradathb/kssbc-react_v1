@@ -1,58 +1,70 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import KSSBC from "./../abis/KSSBonusToken.json";
-import Web3 from "web3";
+// import KSSBC from "./../abis/KSSBonusToken.json";
+import Web3Service from "./web3.server";
 import Axios from "axios";
 
 class Header extends React.Component {
   async componentWillMount() {
-    await this.loadWeb3();
-    await this.loadBlockchainData();
+    await Web3Service.loadWeb3();
+    await Web3Service.loadBlockchainData();
+    const balance = await Web3Service.state.KSSBonusToken.methods
+      .balanceOf(Web3Service.state.account)
+      .call({ from: Web3Service.state.account });
+    const symbol = await Web3Service.state.KSSBonusToken.methods.symbol().call();
+    const decimal = await Web3Service.state.KSSBonusToken.methods.decimals().call();
+    this.setState({
+      accounts: Web3Service.state.account,
+      contract: Web3Service.state.KSSBonusToken,
+      balance: balance,
+      symbol: symbol,
+      decimal: decimal
+    });
     await this.usernameshow();
     await this.getUser();
   }
-  async loadWeb3() {
-    if (window.web3) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
-    }
-  }
-  async loadBlockchainData() {
-    if (window.web3) {
-      const web3 = window.web3;
-      const accounts = await web3.eth.getAccounts();
-      this.setState({ accounts: accounts[0] });
-      const networkId = await web3.eth.net.getId();
-      const networkData = KSSBC.networks[networkId];
+  // async loadWeb3() {
+  //   if (window.web3) {
+  //     window.web3 = new Web3(window.ethereum);
+  //     await window.ethereum.request({
+  //       method: "eth_requestAccounts",
+  //     });
+  //   } else if (window.web3) {
+  //     window.web3 = new Web3(window.web3.currentProvider);
+  //   } else {
+  //     window.alert(
+  //       "Non-Ethereum browser detected. You should consider trying MetaMask!"
+  //     );
+  //   }
+  // }
+  // async loadBlockchainData() {
+  //   if (window.web3) {
+  //     const web3 = window.web3;
+  //     const accounts = await web3.eth.getAccounts();
+  //     this.setState({ accounts: accounts[0] });
+  //     const networkId = await web3.eth.net.getId();
+  //     const networkData = KSSBC.networks[networkId];
 
-      const abi = KSSBC.abi;
-      const address = networkData.address;
-      const KssBonus = new web3.eth.Contract(abi, address);
-      this.setState({ contract: KssBonus });
-      // balanceOf();
-      const balance = await KssBonus.methods
-        .balanceOf(accounts[0])
-        .call({ from: accounts[0] });
+  //     const abi = KSSBC.abi;
+  //     const address = networkData.address;
+  //     const KssBonus = new web3.eth.Contract(abi, address);
+  //     this.setState({ contract: KssBonus });
+  //     // balanceOf();
+  //     const balance = await KssBonus.methods
+  //       .balanceOf(accounts[0])
+  //       .call({ from: accounts[0] });
 
-      // symbol();
-      const symbol = await KssBonus.methods.symbol().call();
-      this.setState({ symbol: symbol });
-      const sumbalaceETH = web3.utils.fromWei(balance, "ether");
-      const sumbalace = balance;
-      this.setState({ balance: sumbalace, balanceETH: sumbalaceETH });
-      // Decimal
-      const decimal = await KssBonus.methods.decimals().call();
-      this.setState({ decimals: decimal });
-    }
-  }
+  //     // symbol();
+  //     const symbol = await KssBonus.methods.symbol().call();
+  //     this.setState({ symbol: symbol });
+  //     const sumbalaceETH = web3.utils.fromWei(balance, "ether");
+  //     const sumbalace = balance;
+  //     this.setState({ balance: sumbalace, balanceETH: sumbalaceETH });
+  //     // Decimal
+  //     const decimal = await KssBonus.methods.decimals().call();
+  //     this.setState({ decimals: decimal });
+  //   }
+  // }
   currencyFormat(num) {
     return Intl.NumberFormat().format(num);
   }

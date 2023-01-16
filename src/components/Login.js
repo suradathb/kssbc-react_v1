@@ -24,7 +24,7 @@ class Login extends Component {
     };
     Axios({
       // Endpoint to send files
-      url: `http://localhost:5000/api/v1/users/login`,
+      url: `http://localhost:5000/api/v1/userauth/loginauth`,
       method: "POST",
       headers: {
         // Add any auth token here
