@@ -1,16 +1,17 @@
 import Web3 from "web3";
-import KSSBonusToken from "../abis/KSSBonusToken.json";
+import MyToken from "../abis/MyToken.json";
 
-class Web3Service {
+class Web3MyTokenService {
   constructor() {
     this.web3 = null;
     this.state = {
       account: "",
-      KSSBonusToken: null,
+      MyToken: null,
       totalSupply: 0,
       symbol: "",
       name: "",
       decimals: "",
+      owner:""
     };
   }
 
@@ -43,16 +44,24 @@ class Web3Service {
       const accounts = await this.web3.eth.getAccounts();
       this.state.account = accounts[0];
       const networkId = await this.web3.eth.net.getId();
-      const networkData = KSSBonusToken.networks[networkId];
-      const abi = KSSBonusToken.abi;
+      const networkData = MyToken.networks[networkId];
+      const abi = MyToken.abi;
       const address = networkData.address;
-      const kSSBonusToken = new this.web3.eth.Contract(abi, address);
-      this.state.KSSBonusToken = kSSBonusToken;
-      const totalSupply = await kSSBonusToken.methods.totalSupply().call({from:accounts[0]});
-      this.state.totalSupply = totalSupply;
+      const myToken = new this.web3.eth.Contract(abi, address);
+      this.state.MyToken = myToken;
+      const TotalSupply = await myToken.methods.totalSupply().call({from:accounts[0]});
+      this.state.totalSupply = TotalSupply;
+      const name = await myToken.methods.name().call({from:accounts[0]});
+      this.state.name = name;
+      const symbol = await myToken.methods.symbol().call({from:accounts[0]});
+      this.state.symbol = symbol;
+      const decimals = await myToken.methods.decimals().call({from:accounts[0]});
+      this.state.decimals = decimals;
+      const owner = await myToken.methods.owner().call({from:accounts[0]});
+      this.state.owner = owner;
     }
   }
 }
 
-const web3Service = new Web3Service();
-export default web3Service;
+const web3MyTokenService = new Web3MyTokenService();
+export default web3MyTokenService;

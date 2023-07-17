@@ -11,14 +11,18 @@ class Header extends React.Component {
     const balance = await Web3Service.state.KSSBonusToken.methods
       .balanceOf(Web3Service.state.account)
       .call({ from: Web3Service.state.account });
-    const symbol = await Web3Service.state.KSSBonusToken.methods.symbol().call();
-    const decimal = await Web3Service.state.KSSBonusToken.methods.decimals().call();
+    const symbol = await Web3Service.state.KSSBonusToken.methods
+      .symbol()
+      .call();
+    const decimal = await Web3Service.state.KSSBonusToken.methods
+      .decimals()
+      .call();
     this.setState({
       accounts: Web3Service.state.account,
       contract: Web3Service.state.KSSBonusToken,
       balance: balance,
       symbol: symbol,
-      decimal: decimal
+      decimal: decimal,
     });
     await this.usernameshow();
     await this.getUser();
@@ -177,21 +181,34 @@ class Header extends React.Component {
                     </Link>
                   </li>
                   <li className="nav-item">
+                    <Link className="nav-link" to="/sto">
+                      STO
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/721">
+                      ERC721
+                    </Link>
+                  </li>
+                  <li className="nav-item">
                     <Link className="nav-link" to="/abount">
                       Abount
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <Link className="nav-link" to="/login">
                       Login
                     </Link>
-                  </li>
+                  </li> */}
                   {/* <li className="nav-item">ผู้ใช้ : {this.state.acname} </li> */}
                 </ul>
               </div>
               <div className="navbar align-self-center d-flex">
                 <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                   <li className="nav-item">
+                    {/* <Link className="nav-link" to="/login">
+                      Login
+                    </Link> */}
                     {" "}
                     {this.state.symbol} :{" "}
                     {this.currencyFormat(this.state.balance)} wei

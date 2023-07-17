@@ -13,8 +13,8 @@ class ApprovedBonusPoint extends React.Component {
     await Web3Service.loadWeb3();
     await Web3Service.loadBlockchainData();
     this.setState({
-      account:Web3Service.state.account,
-      contract:Web3Service.state.KSSBonusToken
+      account: Web3Service.state.account,
+      contract: Web3Service.state.KSSBonusToken,
     });
   }
   // async loadWeb3() {

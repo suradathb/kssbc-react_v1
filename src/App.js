@@ -15,6 +15,8 @@ import Login from "./components/Login";
 import TransBlock from "./components/TransBlock";
 import SmartContract from "./components/SmartContract";
 import Abount from "./components/Abount";
+import StoMain from "./components/StoMain";
+import NFTDashbord from "./components/NFTDashbord";
 
 class App extends React.Component {
   constructor(props) {
@@ -35,6 +37,8 @@ class App extends React.Component {
           <Route path="/user" element={<ListMapUser />} />
           <Route path="/contract" element={<SmartContract />} />
           <Route path="/abount" element={<Abount />} />
+          <Route path="/sto" element={<StoMain/>}/>
+          <Route path="/721" element={<NFTDashbord/>} />
           {/* <Route path='/adduser' element={<CreateUser/>} /> */}
           <Route path="/transorder" element={<TransOrder />} />
           <Route path="/approve" element={<ApproveList />} />

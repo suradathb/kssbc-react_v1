@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import ChatGPT from "./ChatGPT";
 
 class Abount extends React.Component {
   async componentWillMount() {}
@@ -98,6 +99,7 @@ class Abount extends React.Component {
               หมายเหตุ: Erigon ไม่มีการซิงค์แบบสแนป แต่สามารถตัดแต่งแบบเต็มได้
               (~500GB)
             </li>
+            <ChatGPT/>
           </div>
         </div>
       </>

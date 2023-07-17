@@ -78,6 +78,8 @@ class SmartContract extends React.Component {
       decimals: "",
       fromaddress: "0xE935a4C890a1D1B8b1F9aFC83eA96b65792e2736",
       balance: 0,
+      sto_to : "",
+      sto_amount:0
     };
   }
   AddTokenBonus = (
@@ -217,8 +219,8 @@ class SmartContract extends React.Component {
                       state={{
                         contract: this.state.contract,
                         account: this.state.account,
-                        from: this.state.fromaddress,
-                        price: this.state.allowance,
+                        from: this.state.sto_to,
+                        price: this.state.sto_amount,
                       }}
                     />
                   </td>
